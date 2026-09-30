@@ -80,7 +80,15 @@ If you want a change to break an existing pattern, say so in the request. Otherw
 
    Commit that file to share it with a team; personal overrides go in `fmad-build.user.toml`, which is git-ignored. `/fmad-customize` can write these files for you.
 
-### Cheat Sheet
+More detail: [Choose a Planning Path](https://davidbatodev.github.io/fmad-method/plan/choose-a-planning-path/), [Start in an Existing Codebase](https://davidbatodev.github.io/fmad-method/existing-codebases/start-in-an-existing-codebase/), and [Set and Maintain Project Context](https://davidbatodev.github.io/fmad-method/existing-codebases/set-and-maintain-project-context/).
+
+## Cheat Sheet
+
+📄 **[Download the printable cheat sheet (PDF)](docs-site/public/fmad-cheat-sheet.pdf)** · [view it online](https://davidbatodev.github.io/fmad-method/fmad-cheat-sheet.pdf)
+
+Invoke a skill by name (`/fmad-build …` in Claude Code) or just describe what you want; the phrases below trigger the right one. Documents land in `_fmad-output/`, inside the active initiative's folder when one is set.
+
+### Quick Picks
 
 | I want to… | Run |
 | --- | --- |
@@ -92,7 +100,80 @@ If you want a change to break an existing pattern, say so in the request. Otherw
 | Set up or fix agent instructions | `/fmad-project-context` |
 | Know what's next | `/fmad` |
 
-More detail: [Choose a Planning Path](https://davidbatodev.github.io/fmad-method/plan/choose-a-planning-path/), [Start in an Existing Codebase](https://davidbatodev.github.io/fmad-method/existing-codebases/start-in-an-existing-codebase/), and [Set and Maintain Project Context](https://davidbatodev.github.io/fmad-method/existing-codebases/set-and-maintain-project-context/).
+### Hub and Setup
+
+| Skill | What it can do | Say something like |
+| --- | --- | --- |
+| `fmad` | Your guide. Answers FMAD questions, recommends the next skill, runs setup, status, update, and repair, and manages the active initiative | *"fmad setup"*, *"fmad status"*, *"what should I do next?"* |
+| `fmad-project-context` | Writes and maintains a small verified agent-instructions block in `AGENTS.md`: setup, adopt existing files, refresh, record a pitfall, audit | *"set up AGENTS.md"*, *"record: agents keep using npm instead of pnpm"* |
+| `fmad-customize` | Writes override files that change how any skill or agent behaves: facts, principles, menus, hooks | *"customize fmad-build to always run pnpm test"* |
+
+### Explore and Research
+
+| Skill | What it can do | Say something like |
+| --- | --- | --- |
+| `fmad-brainstorming` | Facilitated ideation drawing on 100+ creative techniques, with an HTML keepsake of the session | *"help me brainstorm features for a study-group app"* |
+| `fmad-forge-idea` | Pressure-tests a half-formed idea while personas probe its weak points, until it hardens or dies cheaply; can write a short brief | *"forge this idea: …"* |
+| `fmad-deep-recon` | Cited research for a decision: market, domain, technical, competitive, user voice, academic literature, or choosing between options. Runs the research here, drafts a prompt for ChatGPT, Gemini, or Perplexity, or summarizes a report you bring | *"research the market for X"*, *"help me choose between Supabase and Firebase"* |
+| `fmad-party-mode` | A roundtable between the agents or custom personas, including focus-group panels | *"party mode: should we build X?"* |
+| `fmad-advanced-elicitation` | Makes the AI critique and improve its last answer with 70+ methods such as Socratic questioning, first principles, pre-mortem, and red team | *"run a pre-mortem on that"* |
+
+### Define
+
+| Skill | What it can do | Say something like |
+| --- | --- | --- |
+| `fmad-product-brief` | Creates, updates, or validates a product brief: the vision on a page or two | *"create a product brief"* |
+| `fmad-prfaq` | Amazon's Working Backwards: writes the launch press release first, then answers hard customer and stakeholder questions | *"work backwards on this idea"* |
+| `fmad-prd` | Creates, updates, or validates a PRD, with an HTML validation report | *"create a PRD"*, *"validate the PRD"* |
+| `fmad-spec` | Condenses any input (idea, brief, PRD, transcript, notes) into a short spec that Build can execute; also updates and validates specs | *"distill this into a spec"* |
+
+### Design
+
+| Skill | What it can do | Say something like |
+| --- | --- | --- |
+| `fmad-ux` | Captures the UX in `DESIGN.md` (how it looks) and `EXPERIENCE.md` (how it behaves) | *"help me plan the UX"* |
+| `fmad-architecture` | Records the technical decisions that keep separately built parts consistent. Works from a spec, a raw idea, or an existing codebase; creates, updates, or validates | *"create the architecture"* |
+
+### Plan and Track
+
+| Skill | What it can do | Say something like |
+| --- | --- | --- |
+| `fmad-ticket` | Slices initiatives into epics and epics into stories, writes and refines tickets, and runs the board (publish, ready, move, assign, status) in the repo, GitHub, Jira, Linear, Notion, or Trello | *"break this epic into stories"*, *"what's ready?"* |
+
+### Build
+
+| Skill | What it can do | Say something like |
+| --- | --- | --- |
+| `fmad-build` | The workhorse. Clarifies the request, plans (you approve), implements, reviews with independent reviewers, verifies, and presents the result. Accepts an issue or story link | *"/fmad-build add dark mode"* |
+| `fmad-build-auto` | One unattended build iteration for automated loops, where an orchestrator hands each worker one ticket | Invoke by name |
+| `fmad-qa-generate-e2e-tests` | Generates API and end-to-end tests for features that already exist | *"create QA automated tests for checkout"* |
+
+### Review and Verify
+
+| Skill | What it can do | Say something like |
+| --- | --- | --- |
+| `fmad-code-review` | Several independent reviewers check a change in parallel; findings are triaged before you see them | *"run code review"* |
+| `fmad-review` | Review lenses for code or documents: adversarial, edge cases, verification gaps, structure, prose | *"review this PRD adversarially"* |
+| `fmad-walkthrough` | Walks you through reviewing a commit, PR, file, or folder yourself | Invoke by name |
+
+### Adjust and Learn
+
+| Skill | What it can do | Say something like |
+| --- | --- | --- |
+| `fmad-correct-course` | When a big change lands mid-build, assesses the impact on the PRD, epics, architecture, and UX and proposes the change | *"correct course: the client dropped payments"* |
+| `fmad-retrospective` | Evidence-based review of a finished epic: sourced findings, action items, and an acceptance decision | *"let's retro the epic"* |
+
+### Agent Menus
+
+Talk to an agent (*"talk to Ember"* or `/fmad-agent-analyst`), then type a menu code, or just say what you want.
+
+| Agent | Menu codes |
+| --- | --- |
+| 📊 **Ember**, analyst | `BP` brainstorm · `MR` market · `DR` domain · `TR` technical · `TS` tech selection · `CR` competitors · `UV` user voice · `CB` product brief · `WB` PRFAQ · `PC` project context |
+| 📋 **Flint**, product manager | `PRD` create, update, or validate a PRD · `CC` correct course · `TK` tickets |
+| 🎨 **Sienna**, UX designer | `CU` create the UX design |
+| 🏗️ **Ferris**, architect | `CA` create the architecture · `TK` tickets |
+| 💻 **Cinder**, developer | `BD` build · `QA` generate tests · `CR` code review · `ER` epic retrospective · `TK` tickets |
 
 ## Why FMAD?
 
@@ -119,7 +200,7 @@ FMAD ships two modules. `fmod-method` holds the delivery workflows and `fmod-cor
 | 🏗️ **Ferris** — System Architect | `fmad-agent-architect` | Boring-on-purpose technology, trade-offs, what breaks at scale |
 | 💻 **Cinder** — Senior Software Engineer | `fmad-agent-dev` | Test-first implementation with commit-message brevity |
 
-The workflows cover the rest of the loop: `fmad-brainstorming`, `fmad-forge-idea`, `fmad-product-brief`, `fmad-prfaq`, `fmad-deep-recon`, `fmad-prd`, `fmad-ux`, `fmad-architecture`, `fmad-spec`, `fmad-ticket`, `fmad-build`, `fmad-build-auto`, `fmad-code-review`, `fmad-review`, `fmad-walkthrough`, `fmad-qa-generate-e2e-tests`, `fmad-correct-course`, `fmad-retrospective`, `fmad-project-context`, `fmad-customize`, and `fmad-advanced-elicitation`. See the [skills and agents reference](https://davidbatodev.github.io/fmad-method/reference/skills-and-agents/).
+The workflow skills cover the rest of the loop; the [Cheat Sheet](#cheat-sheet) lists every one with what it can do. See also the [skills and agents reference](https://davidbatodev.github.io/fmad-method/reference/skills-and-agents/).
 
 ## Plan on the Web
 

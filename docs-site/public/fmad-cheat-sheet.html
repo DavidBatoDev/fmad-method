@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FMAD Cheat Sheet</title>
+<!--
+  Source of fmad-cheat-sheet.pdf. After editing, regenerate the PDF with headless Chrome or Edge:
+  chrome --headless --no-pdf-header-footer --print-to-pdf=fmad-cheat-sheet.pdf fmad-cheat-sheet.html
+-->
+<style>
+  :root {
+    --steel: #16181d;
+    --steel-2: #22262d;
+    --ink: #1c2127;
+    --muted: #5f6b7c;
+    --line: #d3d8de;
+    --paper: #f6f7f9;
+    --ember: #c2410c;
+    --ember-soft: #fdf1ea;
+    --ember-bright: #fb923c;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: #e9ebef;
+    font-size: 8.6pt;
+    line-height: 1.35;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto 8mm;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    padding: 0 0 12mm;
+  }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; page-break-after: always; break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+  }
+  header.band {
+    background: var(--steel);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 5mm;
+    padding: 6mm 10mm;
+    border-bottom: 1.4mm solid var(--ember);
+  }
+  header.band.slim { padding: 4mm 10mm; }
+  .mark { width: 15mm; height: 15mm; flex: none; }
+  .slim .mark { width: 10mm; height: 10mm; }
+  .brand h1 { margin: 0; font-size: 19pt; letter-spacing: -0.02em; font-weight: 800; }
+  .slim .brand h1 { font-size: 13pt; }
+  .brand h1 span { color: var(--ember-bright); font-weight: 600; }
+  .brand p { margin: 0.6mm 0 0; color: #a2acb9; font-size: 8.4pt; }
+  .band .meta { margin-left: auto; text-align: right; color: #a2acb9; font-size: 7.6pt; }
+  .band .meta b { color: #fff; }
+  main { padding: 5mm 10mm 0; }
+  h2 {
+    font-size: 9.6pt;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ember);
+    margin: 4.2mm 0 2mm;
+    padding-bottom: 1mm;
+    border-bottom: 0.3mm solid var(--line);
+  }
+  h2:first-child { margin-top: 0; }
+  h3 { font-size: 9pt; margin: 0 0 1.2mm; }
+  code, .cmd {
+    font-family: "Cascadia Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+    font-size: 8pt;
+  }
+  code { background: var(--paper); border: 0.2mm solid var(--line); border-radius: 0.8mm; padding: 0 0.8mm; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3.5mm; }
+  .card {
+    border: 0.3mm solid var(--line);
+    border-radius: 1.2mm;
+    padding: 2.8mm 3.2mm;
+    background: #fff;
+  }
+  .card.accent { border-left: 1.2mm solid var(--ember); background: var(--ember-soft); }
+  .steps { margin: 0; padding-left: 4.5mm; }
+  .steps li { margin: 0 0 1.1mm; }
+  .terminal {
+    background: var(--steel);
+    color: #e6eaf0;
+    border-radius: 1.2mm;
+    padding: 2.6mm 3.2mm;
+    margin: 1.2mm 0;
+    font-family: "Cascadia Mono", Consolas, monospace;
+    font-size: 8.2pt;
+  }
+  .terminal .p { color: var(--ember-bright); }
+  .flow { font-size: 8pt; }
+  .flow b { color: var(--ember); }
+  .arrow { color: var(--ember); font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; vertical-align: top; padding: 1.25mm 1.6mm; border-bottom: 0.25mm solid var(--line); }
+  th { font-size: 7.2pt; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); background: var(--paper); }
+  td.skill { white-space: nowrap; font-weight: 700; width: 1%; }
+  td.skill code { font-weight: 700; color: var(--ember); background: none; border: 0; padding: 0; }
+  td.say { color: var(--muted); font-style: italic; width: 33%; }
+  .group { margin-top: 2.2mm; }
+  .group h3 {
+    display: inline-block;
+    background: var(--steel);
+    color: #fff;
+    font-size: 7.6pt;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 0.8mm 2.2mm;
+    border-radius: 0.8mm 0.8mm 0 0;
+    margin: 0;
+  }
+  .crew td:first-child { white-space: nowrap; width: 1%; font-weight: 700; }
+  .codes code { background: var(--ember-soft); border-color: #f5c6a8; color: var(--ember); font-weight: 700; }
+  .tips li { margin-bottom: 1mm; }
+
+  /* page 2: one fixed grid shared by every group table, so columns line up */
+  .skills main { padding-top: 2.5mm; }
+  .skills header.band.slim { padding: 3mm 10mm; }
+  .skills table { table-layout: fixed; font-size: 7.7pt; line-height: 1.24; }
+  .skills col.c1 { width: 45mm; }
+  .skills col.c2 { width: auto; }
+  .skills col.c3 { width: 50mm; }
+  .skills th, .skills td { padding: 0.7mm 1.4mm; }
+  .skills td.skill { width: auto; white-space: normal; }
+  .skills td.skill code { font-size: 7.4pt; }
+  .skills td.say { width: auto; }
+  .skills .group { margin-top: 1.3mm; }
+  footer {
+    position: absolute;
+    left: 10mm; right: 10mm; bottom: 4mm;
+    display: flex; justify-content: space-between;
+    color: var(--muted);
+    font-size: 6.8pt;
+    border-top: 0.25mm solid var(--line);
+    padding-top: 1.6mm;
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================= PAGE 1 ======================= -->
+<section class="page">
+  <header class="band">
+    <svg class="mark" viewBox="0 0 1000 1000" aria-label="FMAD" role="img">
+      <rect width="1000" height="1000" rx="60" fill="#22262d"/>
+      <path fill="#f5f5f4" d="M250 170H740V320H420V440H660V590H420V830H250Z"/>
+      <path fill="#fb923c" d="M590 610C590 610 665 695 665 755A75 75 0 0 1 515 755C515 695 590 610 590 610Z"/>
+    </svg>
+    <div class="brand">
+      <h1>FMAD <span>Cheat Sheet</span></h1>
+      <p>Foundry Method for Agile AI-Driven Development</p>
+    </div>
+    <div class="meta"><b>v1.0.0</b><br>github.com/DavidBatoDev/fmad-method<br>davidbatodev.github.io/fmad-method</div>
+  </header>
+
+  <main>
+    <h2>Install once per project</h2>
+    <div class="grid2">
+      <div>
+        <div class="terminal"><span class="p">$</span> npx skills add DavidBatoDev/fmad-method</div>
+        <ol class="steps">
+          <li>Pick your coding tool and skills. Include <code>fmad</code>, <code>fmod-method</code>, <code>fmod-core-tools</code> (or take them all).</li>
+          <li>Open the tool in the project and say <b>"fmad setup"</b>. It creates <code>_fmad/</code> (config and scripts, commit it).</li>
+          <li>Documents land in <code>_fmad-output/</code>, inside the active initiative's folder when one is set.</li>
+        </ol>
+      </div>
+      <div class="card accent">
+        <h3>Three commands to remember</h3>
+        <table>
+          <tr><td class="skill"><code>/fmad</code></td><td>"What should I do next?" It inspects the project and recommends a skill.</td></tr>
+          <tr><td class="skill"><code>/fmad-build</code></td><td>Turn a change into reviewed, verified code.</td></tr>
+          <tr><td class="skill"><code>fmad status</code></td><td>Versions and what to run next. Say <b>"fmad setup"</b> again to update.</td></tr>
+        </table>
+        <p style="margin:1.6mm 0 0;color:var(--muted)">Needs an AI coding tool with skills (Claude Code, Codex, Cursor, and others), <code>uv</code>, Node.js, and Git.</p>
+      </div>
+    </div>
+
+    <h2>Pick your path</h2>
+    <div class="grid3">
+      <div class="card">
+        <h3>New project</h3>
+        <div class="flow">
+          <p style="margin:0 0 1mm"><b>Small and clear:</b> <code>/fmad-build &lt;what you want&gt;</code></p>
+          <p style="margin:0 0 1mm"><b>Clear, several sessions:</b> spec <span class="arrow">→</span> ticket <span class="arrow">→</span> build per story <span class="arrow">→</span> retrospective</p>
+          <p style="margin:0 0 1mm"><b>Fuzzy idea:</b> brainstorming or forge-idea <span class="arrow">→</span> brief or PRD <span class="arrow">→</span> UX and architecture <span class="arrow">→</span> spec <span class="arrow">→</span> tickets <span class="arrow">→</span> builds</p>
+          <p style="margin:0"><b>Hackathon:</b> forge-idea <span class="arrow">→</span> spec <span class="arrow">→</span> build. Run <code>fmad-project-context</code> early.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Existing, no docs</h3>
+        <div class="flow">
+          <p style="margin:0 0 1mm">Don't write docs first. Build reads the code and matches its conventions.</p>
+          <p style="margin:0 0 1mm"><b>1.</b> <code>/fmad-project-context</code> "set up AGENTS.md"</p>
+          <p style="margin:0 0 1mm"><b>2.</b> Small change: <code>/fmad-build</code>. Bigger: spec <span class="arrow">→</span> ticket <span class="arrow">→</span> build. Design: <code>/fmad-architecture</code> from the codebase.</p>
+          <p style="margin:0"><b>3.</b> Repeated mistake: "record: …". After big changes: "refresh".</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Existing, with docs</h3>
+        <div class="flow">
+          <p style="margin:0 0 1mm"><b>1.</b> <code>/fmad-project-context</code> "adopt our AGENTS.md". It keeps and improves what you have.</p>
+          <p style="margin:0 0 1mm"><b>2.</b> Feed docs to planning, not every build: <code>/fmad-spec</code> with sources (≤ 40 pages), PRD "update" or "validate", architecture from your doc.</p>
+          <p style="margin:0"><b>3.</b> Pin must-follow docs: <code>persistent_facts</code> in <code>_fmad/custom/&lt;skill&gt;.toml</code> (or ask <code>/fmad-customize</code>).</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>The Foundry crew</h2>
+    <p style="margin:0 0 1.6mm">Say <b>"talk to Ember"</b> (or run <code>/fmad-agent-analyst</code>), then type a menu code or just describe what you want. All five together: <code>/fmad-party-mode</code>.</p>
+    <table class="crew codes">
+      <tr><th>Agent</th><th>Brings</th><th>Menu codes</th></tr>
+      <tr><td>📊 Ember · analyst</td><td>Evidence-first discovery and research</td><td><code>BP</code> brainstorm · <code>MR</code> market · <code>DR</code> domain · <code>TR</code> technical · <code>TS</code> tech selection · <code>CR</code> competitors · <code>UV</code> user voice · <code>CB</code> brief · <code>WB</code> PRFAQ · <code>PC</code> project context</td></tr>
+      <tr><td>📋 Flint · PM</td><td>Jobs-to-be-done, sharp "why?" questions</td><td><code>PRD</code> create, update, validate · <code>CC</code> correct course · <code>TK</code> tickets</td></tr>
+      <tr><td>🎨 Sienna · UX</td><td>User journeys, the screen before the code</td><td><code>CU</code> create the UX design</td></tr>
+      <tr><td>🏗️ Ferris · architect</td><td>Boring-on-purpose tech, trade-offs</td><td><code>CA</code> architecture · <code>TK</code> tickets</td></tr>
+      <tr><td>💻 Cinder · developer</td><td>Test-first, terse, precise</td><td><code>BD</code> build · <code>QA</code> tests · <code>CR</code> code review · <code>ER</code> epic retrospective · <code>TK</code> tickets</td></tr>
+    </table>
+
+    <h2>Tips</h2>
+    <ul class="tips" style="margin:0;padding-left:4.5mm">
+      <li><b>Unsure?</b> Ask <code>/fmad</code>, for example "I have an existing Next.js app, where should I start?"</li>
+      <li><b>Break a pattern on purpose:</b> say so in the <code>fmad-build</code> request. Otherwise Build matches what is already there.</li>
+      <li><b>Keep specs short:</b> give <code>fmad-spec</code> condensed sources, not a pile of raw documents.</li>
+      <li><b>Planning in the browser:</b> web bundles for Gemini Gems and ChatGPT GPTs are on the repo's Releases page.</li>
+      <li><b>Team vs. personal:</b> <code>_fmad/custom/*.toml</code> is shared (commit it); <code>*.user.toml</code> is personal (git-ignored).</li>
+    </ul>
+  </main>
+
+  <footer><span>FMAD v1.0.0 · MIT · Heavily inspired by BMAD-METHOD™ (BMad Code, LLC). Not affiliated.</span><span>1 / 2</span></footer>
+</section>
+
+<!-- ======================= PAGE 2 ======================= -->
+<section class="page skills">
+  <header class="band slim">
+    <svg class="mark" viewBox="0 0 1000 1000" aria-hidden="true">
+      <rect width="1000" height="1000" rx="60" fill="#22262d"/>
+      <path fill="#f5f5f4" d="M250 170H740V320H420V440H660V590H420V830H250Z"/>
+      <path fill="#fb923c" d="M590 610C590 610 665 695 665 755A75 75 0 0 1 515 755C515 695 590 610 590 610Z"/>
+    </svg>
+    <div class="brand"><h1>Every skill <span>and what it can do</span></h1></div>
+    <div class="meta">Invoke by name (<b>/fmad-build …</b>) or describe what you want</div>
+  </header>
+
+  <main>
+    <div class="group"><h3>Hub and setup</h3>
+      <table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+        <tr><th>Skill</th><th>What it can do</th><th>Say something like</th></tr>
+        <tr><td class="skill"><code>fmad</code></td><td>Your guide: answers FMAD questions, recommends the next skill, runs setup, status, update, and repair, and manages the active initiative</td><td class="say">"fmad setup" · "fmad status" · "what's next?"</td></tr>
+        <tr><td class="skill"><code>fmad-project-context</code></td><td>Writes and maintains a small verified agent-instructions block in AGENTS.md: setup, adopt, refresh, record a pitfall, audit</td><td class="say">"set up AGENTS.md" · "record: agents keep using npm"</td></tr>
+        <tr><td class="skill"><code>fmad-customize</code></td><td>Writes overrides that change how any skill or agent behaves: facts, principles, menus, hooks</td><td class="say">"customize fmad-build to run pnpm test"</td></tr>
+      </table>
+    </div>
+
+    <div class="group"><h3>Explore and research</h3>
+      <table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+        <tr><td class="skill"><code>fmad-brainstorming</code></td><td>Facilitated ideation drawing on 100+ creative techniques, with an HTML keepsake of the session</td><td class="say">"help me brainstorm features for …"</td></tr>
+        <tr><td class="skill"><code>fmad-forge-idea</code></td><td>Pressure-tests a half-formed idea while personas probe its weak points, until it hardens or dies cheaply; can write a short brief</td><td class="say">"forge this idea: …"</td></tr>
+        <tr><td class="skill"><code>fmad-deep-recon</code></td><td>Cited research for a decision: market, domain, technical, competitive, user voice, academic literature, or choosing between options. Runs it here, drafts a prompt for ChatGPT, Gemini, or Perplexity, or summarizes a report you bring</td><td class="say">"research the market for …" · "help me choose between A and B"</td></tr>
+        <tr><td class="skill"><code>fmad-party-mode</code></td><td>A roundtable between the agents or custom personas, including focus-group panels</td><td class="say">"party mode: should we build X?"</td></tr>
+        <tr><td class="skill"><code>fmad-advanced-elicitation</code></td><td>Makes the AI critique and improve its last answer with 70+ methods such as Socratic questioning, first principles, pre-mortem, red team</td><td class="say">"run a pre-mortem on that"</td></tr>
+      </table>
+    </div>
+
+    <div class="group"><h3>Define</h3>
+      <table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+        <tr><td class="skill"><code>fmad-product-brief</code></td><td>Creates, updates, or validates a product brief: the vision on a page or two</td><td class="say">"create a product brief"</td></tr>
+        <tr><td class="skill"><code>fmad-prfaq</code></td><td>Amazon's Working Backwards: writes the launch press release first, then answers hard customer and stakeholder questions</td><td class="say">"work backwards on this idea"</td></tr>
+        <tr><td class="skill"><code>fmad-prd</code></td><td>Creates, updates, or validates a PRD, with an HTML validation report</td><td class="say">"create a PRD" · "validate the PRD"</td></tr>
+        <tr><td class="skill"><code>fmad-spec</code></td><td>Condenses any input (idea, brief, PRD, transcript, notes) into a short spec that Build can execute; updates and validates specs</td><td class="say">"distill this into a spec"</td></tr>
+      </table>
+    </div>
+
+    <div class="group"><h3>Design</h3>
+      <table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+        <tr><td class="skill"><code>fmad-ux</code></td><td>Captures the UX in DESIGN.md (how it looks) and EXPERIENCE.md (how it behaves)</td><td class="say">"help me plan the UX"</td></tr>
+        <tr><td class="skill"><code>fmad-architecture</code></td><td>Records the technical decisions that keep separately built parts consistent. Works from a spec, a raw idea, or an existing codebase</td><td class="say">"create the architecture"</td></tr>
+      </table>
+    </div>
+
+    <div class="group"><h3>Plan and track</h3>
+      <table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+        <tr><td class="skill"><code>fmad-ticket</code></td><td>Slices initiatives into epics and epics into stories, writes and refines tickets, runs the board (publish, ready, move, assign, status) in the repo, GitHub, Jira, Linear, Notion, or Trello</td><td class="say">"break this epic into stories" · "what's ready?"</td></tr>
+      </table>
+    </div>
+
+    <div class="group"><h3>Build</h3>
+      <table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+        <tr><td class="skill"><code>fmad-build</code></td><td>The workhorse: clarifies, plans (you approve), implements, reviews with independent reviewers, verifies, presents. Accepts an issue or story link</td><td class="say">"/fmad-build add dark mode"</td></tr>
+        <tr><td class="skill"><code>fmad-build-auto</code></td><td>One unattended build iteration for automated loops, where an orchestrator hands each worker one ticket</td><td class="say">invoke by name</td></tr>
+        <tr><td class="skill"><code>fmad-qa-generate-e2e-tests</code></td><td>Generates API and end-to-end tests for features that already exist</td><td class="say">"create QA automated tests for checkout"</td></tr>
+      </table>
+    </div>
+
+    <div class="group"><h3>Review and verify</h3>
+      <table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+        <tr><td class="skill"><code>fmad-code-review</code></td><td>Several independent reviewers check a change in parallel; findings are triaged before you see them</td><td class="say">"run code review"</td></tr>
+        <tr><td class="skill"><code>fmad-review</code></td><td>Review lenses for code or documents: adversarial, edge cases, verification gaps, structure, prose</td><td class="say">"review this PRD adversarially"</td></tr>
+        <tr><td class="skill"><code>fmad-walkthrough</code></td><td>Walks you through reviewing a commit, PR, file, or folder yourself</td><td class="say">invoke by name</td></tr>
+      </table>
+    </div>
+
+    <div class="group"><h3>Adjust and learn</h3>
+      <table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+        <tr><td class="skill"><code>fmad-correct-course</code></td><td>When a big change lands mid-build, assesses the impact on the PRD, epics, architecture, and UX and proposes the change</td><td class="say">"correct course: the client dropped payments"</td></tr>
+        <tr><td class="skill"><code>fmad-retrospective</code></td><td>Evidence-based review of a finished epic: sourced findings, action items, an acceptance decision</td><td class="say">"let's retro the epic"</td></tr>
+      </table>
+    </div>
+  </main>
+
+  <footer><span>FMAD v1.0.0 · Full docs: davidbatodev.github.io/fmad-method</span><span>2 / 2</span></footer>
+</section>
+
+</body>
+</html>
