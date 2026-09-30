@@ -1,6 +1,6 @@
 ![FMAD — Foundry Method for Agile AI-Driven Development (phát triển phần mềm hướng AI theo lối agile)](banner-fmad-method.png)
 
-[![Version](https://img.shields.io/github/v/tag/DavidBatoDev/fmad-method?color=e8702a&label=version)](https://github.com/DavidBatoDev/fmad-method/tags)
+[![Version](https://img.shields.io/github/v/tag/DavidBatoDev/fmad-method?filter=v*&color=e8702a&label=version)](https://github.com/DavidBatoDev/fmad-method/tags)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-1f2937)](https://davidbatodev.github.io/fmad-method/)
 
