@@ -4,7 +4,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-1f2937)](https://davidbatodev.github.io/fmad-method/)
 
-English | [简体中文](README_CN.md) | [Tiếng Việt](README_VN.md) | [한국어](README_KR.md)
 
 **FMAD — Foundry Method for Agile AI-Driven Development. Turn an idea or change request into working software without giving up the thinking.**
 
