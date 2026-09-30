@@ -35,6 +35,65 @@ Open your coding tool in the project and ask the `fmad` skill to run `fmad setup
 
 Ask for `fmad status` to check versions and see what to run next. Ask for `fmad setup` to install updates: it runs `npx skills update`, then refreshes the project and cleans up renamed and removed skills.
 
+## Use It in Your Projects
+
+Setup is the same everywhere: install the skills, then ask for `fmad setup`. It creates `_fmad/` (config and scripts; commit it), and FMAD writes its documents to `_fmad-output/`. When unsure, ask `/fmad what should I do next?` — it inspects the project and recommends a skill.
+
+### New Projects
+
+Pick the path by how clear the idea is:
+
+| Situation | Path |
+| --- | --- |
+| Small and clear (a hackathon MVP, a script) | `/fmad-build <what you want>` — it asks questions, shows a plan, builds, and checks its work |
+| Clear but needs several sessions | `/fmad-spec` → `/fmad-ticket` (splits it into stories) → `/fmad-build` per story → `/fmad-retrospective` |
+| Fuzzy idea | `/fmad-brainstorming` or `/fmad-forge-idea` → `/fmad-product-brief` or `/fmad-prd` → `/fmad-ux` and `/fmad-architecture` if needed → `/fmad-spec` → tickets → builds |
+| Need evidence first | `/fmad-deep-recon` for cited market, competitor, or technology research |
+
+- Run `/fmad-project-context` early so your standards (stack, test commands, rules) land in `AGENTS.md` and every session follows them.
+- For hackathons, `forge-idea` → `spec` → `build` is the fastest path that still produces something solid.
+- Want several perspectives at once? `/fmad-party-mode` puts Ember, Flint, Sienna, Ferris, and Cinder in one discussion.
+
+### Existing Projects Without Documentation
+
+Don't write documentation first. `fmad-build` reads the code, notes the conventions to reuse, and follows them.
+
+1. Run `/fmad-project-context` and say *"set up AGENTS.md"*. It scans your configs, CI, and code, asks what agents tend to get wrong and what is off limits, and shows you a small verified block. Nothing is written until you approve it.
+2. Make changes: a small fix or feature goes straight to `/fmad-build <the change>`; multi-session work goes `/fmad-spec` → `/fmad-ticket` → `/fmad-build` per story; design decisions go to `/fmad-architecture`, which works from the existing codebase.
+3. When agents repeat a mistake, run `/fmad-project-context` and say *"record: the agent keeps using the wrong test runner"*. Say *"refresh"* after big changes.
+
+If you want a change to break an existing pattern, say so in the request. Otherwise Build matches what is already there.
+
+### Existing Projects With Documentation
+
+1. **Adopt what you have.** Run `/fmad-project-context` and say *"adopt our AGENTS.md"* or *"set up context from our docs"*. It reads your `AGENTS.md`, `CLAUDE.md`, editor rules, and docs folders, keeps and improves what is good, and deletes nothing without asking. You can also point it at handbooks or wiki exports.
+2. **Feed docs into planning, not into every build.** Old documents (the original PRD, design notes) add noise and contradictions to small changes, so keep them archived. For a big change, give `/fmad-spec` the relevant docs as sources, condensed to about 40 pages at most. Use `/fmad-prd` with *"update"* or *"validate"* on an existing PRD, and point `/fmad-architecture` at your architecture doc so it builds on your decisions instead of reinventing them.
+3. **Pin must-follow docs** (compliance, style rules) so a skill always loads them, for example in `_fmad/custom/fmad-build.toml`:
+
+   ```toml
+   [workflow]
+   persistent_facts = [
+     "file:{project-root}/docs/coding-standards.md",
+     "We deploy on Vercel only.",
+   ]
+   ```
+
+   Commit that file to share it with a team; personal overrides go in `fmad-build.user.toml`, which is git-ignored. `/fmad-customize` can write these files for you.
+
+### Cheat Sheet
+
+| I want to… | Run |
+| --- | --- |
+| Make a change | `/fmad-build` |
+| Turn an idea into a buildable contract | `/fmad-spec` |
+| Split big work into stories | `/fmad-ticket` |
+| Review a change | `/fmad-code-review` or `/fmad-walkthrough` |
+| Fix a plan that went off course | `/fmad-correct-course` |
+| Set up or fix agent instructions | `/fmad-project-context` |
+| Know what's next | `/fmad` |
+
+More detail: [Choose a Planning Path](https://davidbatodev.github.io/fmad-method/plan/choose-a-planning-path/), [Start in an Existing Codebase](https://davidbatodev.github.io/fmad-method/existing-codebases/start-in-an-existing-codebase/), and [Set and Maintain Project Context](https://davidbatodev.github.io/fmad-method/existing-codebases/set-and-maintain-project-context/).
+
 ## Why FMAD?
 
 Coding assistants are effective at implementation, but they often turn unstated assumptions into code. FMAD keeps you in control while its agents and workflows make the important decisions explicit and preserve them as context for the work that follows.
