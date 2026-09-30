@@ -29,7 +29,6 @@ const REPO_ROOT = join(SITE_ROOT, '..');
 /** Which diagram lands where, and in which language. */
 const EXPORTS = [
   { diagram: 'fmad-delivery-loop', out: 'docs/images/fmad-delivery-loop.svg' },
-  { diagram: 'fmad-delivery-loop', out: 'docs/images/fmad-delivery-loop-ko.svg', lang: 'ko-KR' },
 ];
 
 /**

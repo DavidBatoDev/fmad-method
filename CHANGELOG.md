@@ -11,7 +11,7 @@
 * The `fmad` hub and standalone tools in the `fmod-core-tools` module: `fmad-brainstorming`, `fmad-forge-idea`, `fmad-deep-recon`, `fmad-review`, `fmad-party-mode`, `fmad-advanced-elicitation`, and `fmad-customize`.
 * The Foundry crew: Ember (analyst), Flint (product manager), Sienna (UX designer), Ferris (architect), and Cinder (developer), with the same personalities as their upstream counterparts.
 * Web bundles for Gemini Gems and ChatGPT Custom GPTs, released as `web-bundles-v1.0.0`.
-* A documentation site on GitHub Pages at <https://davidbatodev.github.io/fmad-method/>, with community translations in Czech, French, Korean, Vietnamese, and Simplified Chinese.
+* A documentation site on GitHub Pages at <https://davidbatodev.github.io/fmad-method/>, in English.
 
 ### 🔧 Changes from upstream
 

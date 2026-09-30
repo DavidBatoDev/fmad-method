@@ -16,8 +16,7 @@ fmad-method/
 │   ├── existing-codebases/
 │   ├── customize/
 │   ├── reference/
-│   ├── images/
-│   └── cs/, fr/, ko-kr/, vi-vn/, zh-cn/   # Translations
+│   └── images/
 └── docs-site/
     ├── astro.config.mjs           # Astro + Starlight config
     ├── scripts/                   # Build pipeline, link and sidebar validators
