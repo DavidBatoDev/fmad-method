@@ -1,0 +1,27 @@
+[fmod]
+code = "method"
+version = "1.0.0"
+update_source = "github:DavidBatoDev/fmad-method/skills"
+skills = [
+  "fmad-agent-analyst",
+  "fmad-agent-architect",
+  "fmad-agent-dev",
+  "fmad-agent-pm",
+  "fmad-agent-ux-designer",
+  "fmad-architecture",
+  "fmad-build",
+  "fmad-build-auto",
+  "fmad-code-review",
+  "fmad-correct-course",
+  "fmad-prd",
+  "fmad-prfaq",
+  "fmad-product-brief",
+  "fmad-project-context",
+  "fmad-qa-generate-e2e-tests",
+  "fmad-retrospective",
+  "fmad-spec",
+  "fmad-ticket",
+  "fmad-ux",
+  "fmad-walkthrough",
+]
+required_skills = [{ skill = "fmad", version = "1.0.0", source = "github:DavidBatoDev/fmad-method/skills" }]

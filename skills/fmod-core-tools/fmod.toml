@@ -1,0 +1,15 @@
+[fmod]
+code = "core-tools"
+version = "1.0.0"
+update_source = "github:DavidBatoDev/fmad-method/skills"
+skills = [
+  "fmad",
+  "fmad-advanced-elicitation",
+  "fmad-brainstorming",
+  "fmad-customize",
+  "fmad-deep-recon",
+  "fmad-forge-idea",
+  "fmad-party-mode",
+  "fmad-review",
+]
+required_skills = ["fmad"]

@@ -1,0 +1,6 @@
+[skill]
+fmod = "fmod-method"
+source = "github:DavidBatoDev/fmad-method/skills"
+recommended_skills = [
+  "fmad-ux",
+]

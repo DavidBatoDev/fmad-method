@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: 📚 Documentation
+    url: https://davidbatodev.github.io/fmad-method/
+    about: Check the docs first — tutorials, guides, and reference
+  - name: 💬 GitHub Discussions
+    url: https://github.com/DavidBatoDev/fmad-method/discussions
+    about: Ask questions and discuss ideas before opening an issue

@@ -1,0 +1,58 @@
+---
+/**
+ * The site title: the FMAD mark (a bold F with a molten drop falling from its
+ * middle arm) in a solid ink tile, then the wordmark in Archivo bold. The path
+ * data matches public/favicon.svg.
+ *
+ * The tile is CSS rather than the SVG's own rect, so the glyph stays square
+ * and can be recoloured per ground.
+ */
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex">
+  <span class="tile">
+    <svg viewBox="0 0 1000 1000" aria-hidden="true" focusable="false">
+      <g fill="currentColor"><path d="M250 170H740V320H420V440H660V590H420V830H250Z"/><path class="drop" d="M590 610C590 610 665 695 665 755A75 75 0 0 1 515 755C515 695 590 610 590 610Z"/></g>
+    </svg>
+  </span>
+  <span class="wordmark" translate="no">{siteTitle}</span>
+</a>
+
+<style>
+  .site-title {
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .tile {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 27px;
+    height: 27px;
+    background: var(--sl-color-white);
+    color: var(--sl-color-bg);
+  }
+
+  .tile svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* the molten drop keeps the accent on either ground */
+  .tile svg .drop {
+    fill: var(--fmad-accent);
+  }
+
+  .wordmark {
+    overflow: hidden;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+</style>

@@ -1,0 +1,4 @@
+[skill]
+fmod = "fmod-method"
+source = "github:DavidBatoDev/fmad-method/skills"
+scripts = ["scripts/tickets.py"]

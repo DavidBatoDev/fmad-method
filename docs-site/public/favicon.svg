@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="FMAD">
+  <rect width="1000" height="1000" rx="60" fill="#16181d"/>
+  <path fill="#f5f5f4" d="M250 170H740V320H420V440H660V590H420V830H250Z"/>
+  <path fill="#fb923c" d="M590 610C590 610 665 695 665 755A75 75 0 0 1 515 755C515 695 590 610 590 610Z"/>
+</svg>

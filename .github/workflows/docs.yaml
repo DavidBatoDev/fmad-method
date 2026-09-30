@@ -1,0 +1,73 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [main]
+    paths: [docs/**, docs-site/**, .github/workflows/docs.yaml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  # No big win in setting this to true — risk of cancelling a deploy mid-flight.
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs-site
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          # Full history needed for Starlight's lastUpdated timestamps (git log)
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: docs-site/.nvmrc
+          cache: npm
+          cache-dependency-path: docs-site/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build documentation
+        env:
+          # Override site URL from GitHub repo variable if set
+          # Otherwise, astro.config.mjs will compute from GITHUB_REPOSITORY
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: build/site
+
+  # One-time repository setup, needed before the first deploy (GITHUB_TOKEN cannot do it):
+  #   1. Settings → Pages → Build and deployment → Source = "GitHub Actions".
+  #      Without it, deploy-pages fails with "Ensure GitHub Pages has been enabled".
+  #      The github-pages environment is created on the first deploy. Optionally set
+  #      the repo variable SITE_URL=https://davidbatodev.github.io/fmad-method/.
+  #   2. Settings → General → Features → Discussions = on. The site footer, README*.md,
+  #      CONTRIBUTING.md, .github/ISSUE_TEMPLATE/config.yaml and several docs link to
+  #      /discussions. (If the repo was created as a GitHub fork, turn on Issues too.)
+  #   3. Re-run this workflow (workflow_dispatch) and check that the site and
+  #      /discussions both load.
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
