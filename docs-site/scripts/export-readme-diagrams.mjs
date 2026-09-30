@@ -27,9 +27,7 @@ const SITE_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO_ROOT = join(SITE_ROOT, '..');
 
 /** Which diagram lands where, and in which language. */
-const EXPORTS = [
-  { diagram: 'fmad-delivery-loop', out: 'docs/images/fmad-delivery-loop.svg' },
-];
+const EXPORTS = [{ diagram: 'fmad-delivery-loop', out: 'docs/images/fmad-delivery-loop.svg' }];
 
 /**
  * The dark ramp, resolved. These are the values `custom.css` gives the
